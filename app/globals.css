@@ -1,27 +1,220 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* globals.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e2f;
+    color: white;
   }
+  
+  .navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #2e2e48;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin-right: 5px;
+  }
+  
+  .navbar ul li {
+    padding: 10px;
+  }
+  
+  .navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .navbar ul li a:hover {
+    color: #ab66ff;
+    transform: scale(1.05);
+    text-decoration: underline;
+  }
+  
+  .navbar .cart img {
+    height: 24px;
+    width: 24px;
+  }
+
+  .navbar .cart {
+    margin-left: 15px; /* Add some space between "Contact" and cart */
+  }
+  
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background-color: #2a2a4d;
+    margin-top: 60px; /* Adjust margin-top so it does not overlap with navbar */
+  }
+  
+  .hero img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .hero-text h1 {
+    font-size: 48px;
+    color: white;
+  }
+  
+  .hero-text h1 span {
+    color: #ab66ff;
+  }
+  
+  .products {
+    padding: 50px;
+    margin-top: 20px;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+  
+  .product-card {
+    background-color: #3a3a5e;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .product-card img {
+    max-width: 100%;
+    height: 120px; /* Ensure the images are sized uniformly */
+    margin-bottom: 20px;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .product-card p {
+    color: white;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  footer {
+    background-color: #2e2e48;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+  }
+  
+  footer p {
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .footer-links li {
+    padding: 0;
+  }
+  
+  .footer-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+
+
+  /*Contacts*/
+
+  /* General styling for the Contact Page */
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: top;
+  background-color: #ffffff;
+  color: #3b2464;
+  min-height: 100vh;
+  padding: 0px;
+}
+
+.contact-header {
+  background-color: #e6d7f5; /* Light purple background */
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+.contact-header h1 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #3b2464; /* Dark purple for the heading */
+  margin: 0;
+}
+
+.contact-content {
+  text-align: center;
+  margin: 20px 0;
+  max-width: 600px;
+}
+
+.contact-content p {
+  font-size: 16px;
+  color: #3b2464; /* Dark purple for the text */
+  margin-bottom: 40px;
+}
+
+.contact-icons {
+  display: flex;
+  justify-content: center;
+  gap: 50px; /* Space between icons */
+}
+
+.contact-icons i {
+  font-size: 60px;
+  color: #3b2464; /* Dark purple for icons */
+  cursor: pointer;
+}
+
+.contact-icons i:hover {
+  color: #ab66ff; /* Change color on hover */
+}
+
+/* Footer */
+.contact-footer {
+  margin-top: 50px;
+  text-align: center;
+  padding: 20px;
+  background-color: #3b2464; /* Dark purple background */
+  color: #ffffff;
+  width: 100%;
+}
+
+.contact-footer p {
+  margin: 0;
+  font-size: 14px;
 }

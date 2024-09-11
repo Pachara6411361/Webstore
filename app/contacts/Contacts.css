@@ -1,0 +1,86 @@
+/* General styling for the Contact Page */
+.contact-container {
+    align-items: center;
+    background-color: #ffffff;
+    color: #3b2464;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .contact-header {
+    background-color: #e6d7f5; /* Light purple background */
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+  }
+  
+  .contact-header h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #3b2464; /* Dark purple for the heading */
+    margin: 0;
+  }
+  
+  .contact-content {
+    text-align: center;
+    margin: 20px 0;
+    max-width: 600px;
+  }
+  
+  .contact-content p {
+    font-size: 16px;
+    color: #3b2464; /* Dark purple for the text */
+    margin-bottom: 40px;
+  }
+  
+  /* Icons Section */
+  .contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 50px; /* Space between icons */
+    margin-top: 30px;
+  }
+  
+  .contact-icons i {
+    font-size: 60px;
+    color: #3b2464; /* Dark purple for icons */
+    cursor: pointer;
+  }
+  
+  .contact-icons i:hover {
+    color: #ab66ff; /* Hover effect */
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #3b2464;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .footer-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    margin-top: 10px;
+  }
+  
+  .footer-links li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .footer-links li a:hover {
+    color: #ab66ff; /* Hover effect */
+  }
+  
