@@ -15,22 +15,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 20px;
+    padding: 20px;
     background-color: #2e2e48;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 100;
+    height: 70px; /* Adjust to fit properly */
   }
   
   .navbar ul {
     list-style: none;
     display: flex;
     gap: 15px;
-    margin-right: 5px;
   }
   
   .navbar ul li {
+    position: relative; /* Important to isolate dropdown */
     padding: 10px;
   }
   
@@ -39,19 +40,37 @@
     text-decoration: none;
     font-weight: 600;
   }
+  
   .navbar ul li a:hover {
     color: #ab66ff;
-    transform: scale(1.05);
-    text-decoration: underline;
   }
   
-  .navbar .cart img {
-    height: 24px;
-    width: 24px;
+  .relative .absolute {
+    position: absolute; /* Important for dropdown placement */
+    top: 100%;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+    background-color: #3a3a5e; /* Ensure the background is visible */
+    border-radius: 5px;
+    z-index: 9999;
   }
-
-  .navbar .cart {
-    margin-left: 15px; /* Add some space between "Contact" and cart */
+  
+  .relative .absolute a {
+    padding: 0.75rem 1rem;
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+  }
+  
+  .relative .absolute a:hover {
+    background-color: #7b1fa2;
+    color: #fff;
+  }
+  
+  .relative:hover .absolute {
+    display: flex;
   }
   
   .hero {
@@ -217,4 +236,22 @@
 .contact-footer p {
   margin: 0;
   font-size: 14px;
+}
+
+/* Styling for the dropdown menu */
+.relative .absolute {
+  display: flex;
+  flex-direction: column;  /* Ensures the menu items are stacked vertically */
+  padding: 0.5rem 0;  /* Add vertical padding */
+}
+
+.relative .absolute a {
+  padding: 0.75rem 1rem;  /* Add spacing for each item */
+  color: white;
+  text-decoration: none;
+}
+
+.relative .absolute a:hover {
+  background-color: #7b1fa2;  /* Highlight on hover */
+  color: #fff;
 }

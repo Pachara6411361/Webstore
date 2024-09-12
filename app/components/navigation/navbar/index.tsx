@@ -60,11 +60,12 @@ export default Navbar;*/
 // navbar/index.tsx
 // components/navigation/navbar.tsx
 // components/navigation/navbar.tsx
+"use client"; 
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Logo from './image/logo2.png';
 import cart from "./image/cart.svg"
+import Dropdown from "./Dropdown"
 
 const Navbar = () => {
   return (
@@ -74,7 +75,12 @@ const Navbar = () => {
       {/* Navigation Links */}
       <ul className="nav-links">
         <li><Link href="/home">Home</Link></li>
-        <li><Link href="/products">Products</Link></li>
+        {/* Use the Dropdown component for Products */}
+        <li>
+                    <Dropdown />
+                </li>
+
+
         <li><Link href="/contacts">Contact</Link></li>
       </ul>
 
