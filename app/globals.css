@@ -255,3 +255,37 @@
   background-color: #7b1fa2;  /* Highlight on hover */
   color: #fff;
 }
+
+
+.product-filter {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.filter-group {
+  margin-bottom: 10px;
+}
+
+.filter-group label {
+  color: #ab66ff; /* Set the text color to purple */
+  font-weight: bold; /* Make the text bold */
+}
+
+.filter-group input {
+  margin-right: 10px;
+}
+
+.apply-filters {
+  background-color: #6a0dad;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 4px;
+}
