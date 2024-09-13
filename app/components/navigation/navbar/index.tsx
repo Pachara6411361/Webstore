@@ -64,7 +64,7 @@ export default Navbar;*/
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import cart from "./image/cart.svg"
+import cart from "./image/cart2.png"
 import Dropdown from "./Dropdown"
 
 const Navbar = () => {

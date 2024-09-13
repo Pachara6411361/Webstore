@@ -2,22 +2,23 @@
 import React, { useState } from "react";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import M1 from "../public/image/mouse1.jpg";
-import M2 from "../public/image/mouse2.jpg";
-import M3 from "../public/image/mouse3.jpg";
-import M4 from "../public/image/mouse4.jpg";
+import H1 from "../public/image/headset1.jpg"; // Ensure correct image paths
+import H2 from "../public/image/headset2.jpg";
+import H3 from "../public/image/headset3.jpg";
+import H4 from "../public/image/headset4.jpg";
 
-const MousePage = () => {
-  const allMouseProducts = [
-    { name: "Logitech Pro X Superlight 2", brand: "Logitech", wireless: "Yes", price: 159.99, image: M1 },
-    { name: "Razer Viper V3 Pro", brand: "Razer", wireless: "Yes", price: 159.99, image: M2 },
-    { name: "Akko Mouse", brand: "Akko", wireless: "No", price: 49.99, image: M3 },
-    { name: "HyperX Mouse", brand: "HyperX", wireless: "Yes", price: 69.99, image: M4 },
+const HeadsetPage = () => {
+  const allHeadsetProducts = [
+    { name: "SteelSeries Arctis Pro", brand: "SteelSeries", wireless: "Yes", surroundSound: "7.1", price: 199.99, image: H1 },
+    { name: "Razer BlackShark V2", brand: "Razer", wireless: "No", surroundSound: "7.1", price: 99.99, image: H2 },
+    { name: "Logitech G Pro X", brand: "Logitech", wireless: "Yes", surroundSound: "7.1", price: 129.99, image: H3 },
+    { name: "Corsair HS50 Pro", brand: "Corsair", wireless: "No", surroundSound: "Stereo", price: 49.99, image: H4 },
   ];
 
-  const [filteredProducts, setFilteredProducts] = useState(allMouseProducts);
+  const [filteredProducts, setFilteredProducts] = useState(allHeadsetProducts);
   const [brandFilters, setBrandFilters] = useState([]);
   const [wirelessFilter, setWirelessFilter] = useState("");
+  const [surroundSoundFilter, setSurroundSoundFilter] = useState("");
   const router = useRouter();
 
   // Handle adding the product to the cart
@@ -47,9 +48,14 @@ const MousePage = () => {
     setWirelessFilter(e.target.value);
   };
 
+  // Handle surround sound filter
+  const handleSurroundSoundChange = (e) => {
+    setSurroundSoundFilter(e.target.value);
+  };
+
   // Apply filters to the product list
   const applyFilters = () => {
-    let filtered = allMouseProducts;
+    let filtered = allHeadsetProducts;
 
     if (brandFilters.length > 0) {
       filtered = filtered.filter((product) => brandFilters.includes(product.brand));
@@ -59,70 +65,60 @@ const MousePage = () => {
       filtered = filtered.filter((product) => product.wireless === wirelessFilter);
     }
 
+    if (surroundSoundFilter) {
+      filtered = filtered.filter((product) => product.surroundSound === surroundSoundFilter);
+    }
+
     setFilteredProducts(filtered);
   };
 
   return (
     <div className="product-page">
-      <h1 className="product-title">MOUSE</h1>
+      <h1 className="product-title">HEADSETS</h1>
 
       {/* Filter section */}
       <div className="product-filter">
         <div className="filter-group">
           <h3 className="text-purple-500">Brand:</h3>
           <label>
-            <input
-              type="checkbox"
-              value="Logitech"
-              onChange={handleBrandChange}
-            />
-            Logitech
+            <input type="checkbox" value="SteelSeries" onChange={handleBrandChange} />
+            SteelSeries
           </label>
           <label>
-            <input
-              type="checkbox"
-              value="Razer"
-              onChange={handleBrandChange}
-            />
+            <input type="checkbox" value="Razer" onChange={handleBrandChange} />
             Razer
           </label>
           <label>
-            <input
-              type="checkbox"
-              value="Akko"
-              onChange={handleBrandChange}
-            />
-            Akko
+            <input type="checkbox" value="Logitech" onChange={handleBrandChange} />
+            Logitech
           </label>
           <label>
-            <input
-              type="checkbox"
-              value="HyperX"
-              onChange={handleBrandChange}
-            />
-            HyperX
+            <input type="checkbox" value="Corsair" onChange={handleBrandChange} />
+            Corsair
           </label>
         </div>
 
         <div className="filter-group">
           <h3 className="text-purple-500">Wireless:</h3>
           <label>
-            <input
-              type="radio"
-              value="Yes"
-              name="wireless"
-              onChange={handleWirelessChange}
-            />
+            <input type="radio" value="Yes" name="wireless" onChange={handleWirelessChange} />
             Yes
           </label>
           <label>
-            <input
-              type="radio"
-              value="No"
-              name="wireless"
-              onChange={handleWirelessChange}
-            />
+            <input type="radio" value="No" name="wireless" onChange={handleWirelessChange} />
             No
+          </label>
+        </div>
+
+        <div className="filter-group">
+          <h3 className="text-purple-500">Surround Sound:</h3>
+          <label>
+            <input type="radio" value="7.1" name="surroundSound" onChange={handleSurroundSoundChange} />
+            7.1 Surround
+          </label>
+          <label>
+            <input type="radio" value="Stereo" name="surroundSound" onChange={handleSurroundSoundChange} />
+            Stereo
           </label>
         </div>
 
@@ -153,4 +149,4 @@ const MousePage = () => {
   );
 };
 
-export default MousePage;
+export default HeadsetPage;

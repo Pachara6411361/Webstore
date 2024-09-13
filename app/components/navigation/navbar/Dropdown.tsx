@@ -7,7 +7,7 @@ export default function Dropdown() {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
-    { title: "Keyboards", route: "/keyboards" },
+    { title: "Keyboards", route: "/keyboard" },
     { title: "Mouse", route: "/mouse" },
     { title: "Monitor", route: "/monitor" },
     { title: "Headset", route: "/headset" },
