@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import mountains from '../app/public/picture1.jpg'
+import mountains from '../app/public/logo2.png'
  
 export default function Responsive() {
   return (
