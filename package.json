@@ -11,6 +11,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "dropdown": "^0.2.0",
+    "express": "^4.21.0",
     "next": "14.2.8",
     "react": "^18",
     "react-bootstrap": "^2.10.4",
