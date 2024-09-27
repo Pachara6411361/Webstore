@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AddProductForm = () => {
-  const [productType, setProductType] = useState('mouse'); // Default product type
+const AddProductForm = ({ closeForm }) => { // Accept closeForm function as a prop
+  const [productType, setProductType] = useState('mouse');
   const [productData, setProductData] = useState({
     name: '',
     brand: '',
@@ -17,6 +17,7 @@ const AddProductForm = () => {
     image: '',
   });
 
+  // Handle change of product type selection
   const handleTypeChange = (e) => {
     setProductType(e.target.value);
     // Reset form data when the product type changes
@@ -33,32 +34,41 @@ const AddProductForm = () => {
     });
   };
 
+  // Handle input field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProductData({ ...productData, [name]: value });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send a POST request to the appropriate API route based on product type
-      const apiEndpoint = `/api/${productType}s`; // Adjusts to /api/mouses, /api/keyboards, etc.
-      await axios.post(apiEndpoint, productData);
-      alert(`${productType} product added successfully!`);
-      // Reset the form after successful submission
-      setProductData({
-        name: '',
-        brand: '',
-        wireless: '',
-        type: '',
-        size: '',
-        refreshRate: '',
-        surroundSound: '',
-        price: '',
-        image: '',
-      });
+      // Set the API endpoint dynamically based on product type
+      const apiEndpoint = `/api/${productType}s`;
+      const response = await axios.post(apiEndpoint, productData);
+
+      // Check if the response status is 201 (created successfully)
+      if (response.status === 201) {
+        alert(`${productType} product added successfully!`);
+        setProductData({
+          name: '',
+          brand: '',
+          wireless: '',
+          type: '',
+          size: '',
+          refreshRate: '',
+          surroundSound: '',
+          price: '',
+          image: '',
+        });
+        closeForm(); // Close the form after successful submission
+      } else {
+        console.error('Unexpected response:', response);
+        alert(`Failed to add ${productType} product. Please try again.`);
+      }
     } catch (error) {
-      console.error(`Error adding ${productType} product:`, error);
+      console.error(`Error adding ${productType} product:`, error.response?.data || error.message);
       alert(`Failed to add ${productType} product. Please try again.`);
     }
   };
@@ -77,8 +87,7 @@ const AddProductForm = () => {
       price: '',
       image: '',
     });
-
-    // Optionally close the form modal here if applicable
+    closeForm(); // Call the closeForm function to close the form/modal
   };
 
   return (

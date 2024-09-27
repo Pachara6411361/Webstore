@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import cart from "./image/cart2.png";
-import Dropdown from "./Dropdown";
+import cart from './image/cart2.png'; // Make sure the path to the image is correct
+import Dropdown from './Dropdown'; // Ensure this path is correct
 import AddProductForm from '../navbar/addproductform'; // Adjust the path as necessary
 
 const Navbar = () => {
@@ -47,7 +47,8 @@ const Navbar = () => {
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={handleCloseForm}>&times;</span>
-            <AddProductForm /> {/* The form component to add products */}
+            {/* Pass handleCloseForm to AddProductForm as closeForm prop */}
+            <AddProductForm closeForm={handleCloseForm} />
           </div>
         </div>
       )}
