@@ -1,26 +1,33 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import K1 from "../public/image/keyboard1.jpg";
-import K2 from "../public/image/keyboard2.jpg";
-import K3 from "../public/image/keyboard3.jpg";
-import K4 from "../public/image/keyboard4.jpg";
+import axios from 'axios'; // Import axios for making API requests
 
 const KeyboardPage = () => {
-  const allKeyboardProducts = [
-    { name: "Akko 3061S HE", brand: "Akko", size: "60%", type: "Hall Effect", price: 109.99, image: K1 },
-    { name: "Keychron Q3 Max", brand: "Keychron", size: "TKL", type: "Mechanical", price: 214.00, image: K2 },
-    { name: "Akko 3098N", brand: "Akko", size: "Full", type: "Mechanical", price: 129.99, image: K3 },
-    { name: "Varmilo VA87M", brand: "Varmilo", size: "75%", type: "Mechanical", price: 149.99, image: K4 },
-  ];
-
-  const [filteredProducts, setFilteredProducts] = useState(allKeyboardProducts);
+  const [allKeyboardProducts, setAllKeyboardProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [brandFilters, setBrandFilters] = useState([]);
   const [sizeFilter, setSizeFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const router = useRouter();
 
+  // Fetch keyboard products from MongoDB on component mount
+  useEffect(() => {
+    const fetchKeyboardProducts = async () => {
+      try {
+        const response = await axios.get('/api/keyboards');
+        setAllKeyboardProducts(response.data);
+        setFilteredProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching keyboard products:", error);
+      }
+    };
+
+    fetchKeyboardProducts();
+  }, []);
+
+  // Handle adding the product to the cart
   const handleAddToCart = (product) => {
     const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
     const productToAdd = {
@@ -154,7 +161,7 @@ const KeyboardPage = () => {
         {filteredProducts.map((product, index) => (
           <div key={index} className="product-card">
             <Image
-              src={product.image}
+              src={product.image || "/default-image.jpg"} // Provide a default image if the URL is missing
               alt={product.name}
               width={150}
               height={300}

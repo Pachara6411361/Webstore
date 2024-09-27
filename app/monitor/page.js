@@ -1,29 +1,37 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import M1 from "../public/image/monitor1.jpg";
-import M2 from "../public/image/monitor2.jpg";
-import M3 from "../public/image/monitor3.jpg";
-import M4 from "../public/image/monitor4.png";
+import axios from 'axios'; // Import axios for making API requests
 
 const MonitorPage = () => {
-  const allMonitorProducts = [
-    { name: "Dell UltraSharp 27", brand: "Dell", size: '27"', refreshRate: "60Hz", price: 499.99, image: M1 },
-    { name: "Samsung Odyssey G9", brand: "Samsung", size: '49"', refreshRate: "240Hz", price: 1299.99, image: M2 },
-    { name: "LG UltraGear 34", brand: "LG", size: '34"', refreshRate: "144Hz", price: 799.99, image: M3 },
-    { name: "ASUS TUF Gaming 24", brand: "ASUS", size: '24"', refreshRate: "165Hz", price: 249.99, image: M4 },
-  ];
-
-  const [filteredProducts, setFilteredProducts] = useState(allMonitorProducts);
+  const [allMonitorProducts, setAllMonitorProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [brandFilters, setBrandFilters] = useState([]);
   const [sizeFilter, setSizeFilter] = useState("");
   const [refreshRateFilter, setRefreshRateFilter] = useState("");
   const router = useRouter();
 
+  // Fetch monitor products from MongoDB when the component mounts
+  useEffect(() => {
+    const fetchMonitorProducts = async () => {
+      try {
+        const response = await axios.get('/api/monitors');
+        setAllMonitorProducts(response.data);
+        setFilteredProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching monitor products:", error);
+      }
+    };
+
+    fetchMonitorProducts();
+  }, []);
+
+  // Handle adding the product to the cart
   const handleAddToCart = (product) => {
     const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
-    currentCart.push({ ...product });
+    const productToAdd = { ...product, price: parseFloat(product.price) };
+    currentCart.push(productToAdd);
     localStorage.setItem('cart', JSON.stringify(currentCart));
     router.push('/cart');
   };
@@ -142,7 +150,7 @@ const MonitorPage = () => {
       <div className="product-grid">
         {filteredProducts.map((product, index) => (
           <div key={index} className="product-card">
-            <Image src={product.image} alt={product.name} width={150} height={300} />
+            <Image src={product.image || "/default-image.jpg"} alt={product.name} width={150} height={300} />
             <p>{product.name}</p>
             <p>Price: ${product.price.toFixed(2)}</p>
             <button className="add-to-cart" onClick={() => handleAddToCart(product)}>

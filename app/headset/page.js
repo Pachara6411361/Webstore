@@ -1,33 +1,36 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import H1 from "../public/image/headset1.jpg"; // Ensure correct image paths
-import H2 from "../public/image/headset2.jpg";
-import H3 from "../public/image/headset3.jpg";
-import H4 from "../public/image/headset4.jpg";
+import axios from 'axios'; // Import axios for making API requests
 
 const HeadsetPage = () => {
-  const allHeadsetProducts = [
-    { name: "SteelSeries Arctis Pro", brand: "SteelSeries", wireless: "Yes", surroundSound: "7.1", price: 199.99, image: H1 },
-    { name: "Razer BlackShark V2", brand: "Razer", wireless: "No", surroundSound: "7.1", price: 99.99, image: H2 },
-    { name: "Logitech G Pro X", brand: "Logitech", wireless: "Yes", surroundSound: "7.1", price: 129.99, image: H3 },
-    { name: "Corsair HS50 Pro", brand: "Corsair", wireless: "No", surroundSound: "Stereo", price: 49.99, image: H4 },
-  ];
-
-  const [filteredProducts, setFilteredProducts] = useState(allHeadsetProducts);
+  const [allHeadsetProducts, setAllHeadsetProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [brandFilters, setBrandFilters] = useState([]);
   const [wirelessFilter, setWirelessFilter] = useState("");
   const [surroundSoundFilter, setSurroundSoundFilter] = useState("");
   const router = useRouter();
 
+  // Fetch headset products from MongoDB on component mount
+  useEffect(() => {
+    const fetchHeadsetProducts = async () => {
+      try {
+        const response = await axios.get('/api/headsets');
+        setAllHeadsetProducts(response.data);
+        setFilteredProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching headset products:", error);
+      }
+    };
+
+    fetchHeadsetProducts();
+  }, []);
+
   // Handle adding the product to the cart
   const handleAddToCart = (product) => {
     const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
-    const productToAdd = {
-      ...product,
-      price: parseFloat(product.price),  // Ensure price is a number
-    };
+    const productToAdd = { ...product, price: parseFloat(product.price) };
     currentCart.push(productToAdd);
     localStorage.setItem('cart', JSON.stringify(currentCart));
     router.push('/cart');
@@ -132,7 +135,7 @@ const HeadsetPage = () => {
         {filteredProducts.map((product, index) => (
           <div key={index} className="product-card">
             <Image
-              src={product.image}
+              src={product.image || "/default-image.jpg"} // Provide a default image path if image URL is missing
               alt={product.name}
               width={150}
               height={300}

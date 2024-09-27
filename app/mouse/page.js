@@ -1,38 +1,44 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import M1 from "../public/image/mouse1.jpg";
-import M2 from "../public/image/mouse2.jpg";
-import M3 from "../public/image/mouse3.jpg";
-import M4 from "../public/image/mouse4.jpg";
+import axios from 'axios';
 
 const MousePage = () => {
-  const allMouseProducts = [
-    { name: "Logitech Pro X Superlight 2", brand: "Logitech", wireless: "Yes", price: 159.99, image: M1 },
-    { name: "Razer Viper V3 Pro", brand: "Razer", wireless: "Yes", price: 159.99, image: M2 },
-    { name: "Akko Mouse", brand: "Akko", wireless: "No", price: 49.99, image: M3 },
-    { name: "HyperX Mouse", brand: "HyperX", wireless: "Yes", price: 69.99, image: M4 },
-  ];
-
-  const [filteredProducts, setFilteredProducts] = useState(allMouseProducts);
+  const [allMouseProducts, setAllMouseProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [brandFilters, setBrandFilters] = useState([]);
   const [wirelessFilter, setWirelessFilter] = useState("");
   const router = useRouter();
+
+  // Fetch mouse products from MongoDB when the component mounts
+  useEffect(() => {
+    const fetchMouseProducts = async () => {
+      try {
+        const response = await axios.get('/api/mice'); // API route to fetch data from MongoDB
+        setAllMouseProducts(response.data);
+        setFilteredProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching mouse products:", error);
+      }
+    };
+
+    fetchMouseProducts();
+  }, []);
 
   // Handle adding the product to the cart
   const handleAddToCart = (product) => {
     const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
     const productToAdd = {
       ...product,
-      price: parseFloat(product.price),  // Ensure price is a number
+      price: parseFloat(product.price), // Ensure price is a number
     };
     currentCart.push(productToAdd);
     localStorage.setItem('cart', JSON.stringify(currentCart));
-    router.push('/cart');
+    router.push('/cart'); // Redirect to the cart page
   };
 
-  // Handle brand filters
+  // Handle brand filter change
   const handleBrandChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
@@ -42,7 +48,7 @@ const MousePage = () => {
     }
   };
 
-  // Handle wireless filter
+  // Handle wireless filter change
   const handleWirelessChange = (e) => {
     setWirelessFilter(e.target.value);
   };
