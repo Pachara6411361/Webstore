@@ -388,3 +388,113 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+/* Updated styles for a dark theme with purple accents */
+
+.add-product-form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #3a3b5a;
+  border-radius: 8px;
+  background-color: #1f1f38; /* Dark background to match the site theme */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #d1c4ff; /* Light purple color to match your theme */
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.form-control {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #3a3b5a;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #2b2b45; /* Input background matching dark theme */
+  color: #ffffff; /* White text for readability */
+}
+
+.form-control::placeholder {
+  color: #b0a5ff; /* Placeholder color matching your theme */
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #6200ea;
+  box-shadow: 0 0 5px rgba(98, 0, 234, 0.5); /* Purple glow on focus */
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #6200ea; /* Primary button color */
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #531bc4; /* Slightly darker on hover */
+}
+
+.btn-secondary {
+  background-color: #3a3b5a;
+  color: #d1c4ff;
+}
+
+.btn-secondary:hover {
+  background-color: #32324a;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #1f1f38;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #d1c4ff;
+}
