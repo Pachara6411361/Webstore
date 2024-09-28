@@ -1,42 +1,48 @@
-import User from '../../../../models/User';
+import User from "../../../../models/User";
+import bcrypt from "bcrypt";
 
-export async function GET(req) {
-  const { id } = req.params; // Get user ID from the URL parameters
+export async function GET(req, { params }) {
+  const { id } = params; // Get user ID from the URL parameters
 
   try {
     // Find the user by ID
     const user = await User.findById(id);
     if (!user) {
-      return new Response(JSON.stringify({ message: 'User not found' }), {
+      return new Response(JSON.stringify({ message: "User not found" }), {
         status: 404,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { "Content-Type": "application/json" },
       });
     }
 
-    return new Response(JSON.stringify(user), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return new Response(
+      JSON.stringify({
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
-    return new Response(JSON.stringify({ message: 'Server error', error }), {
+    return new Response(JSON.stringify({ message: "Server error", error }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { "Content-Type": "application/json" },
     });
   }
 }
 
-import bcrypt from 'bcrypt';
-
-export async function PUT(req) {
-  const { id } = req.params; // Get user ID from the URL parameters
+export async function PUT(req, { params }) {
+  const { id } = params; // Get user ID from the URL parameters
   const { name, password } = await req.json(); // Get new profile data from the request body
-
+  console.log(id);
   try {
     const user = await User.findById(id);
     if (!user) {
-      return new Response(JSON.stringify({ message: 'User not found' }), {
+      return new Response(JSON.stringify({ message: "User not found" }), {
         status: 404,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { "Content-Type": "application/json" },
       });
     }
 
@@ -46,14 +52,17 @@ export async function PUT(req) {
 
     await user.save(); // Save the updated user
 
-    return new Response(JSON.stringify({ message: 'Profile updated successfully' }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return new Response(
+      JSON.stringify({ message: "Profile updated successfully" }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
-    return new Response(JSON.stringify({ message: 'Server error', error }), {
+    return new Response(JSON.stringify({ message: "Server error", error }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { "Content-Type": "application/json" },
     });
   }
 }
