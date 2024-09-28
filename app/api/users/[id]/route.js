@@ -1,4 +1,4 @@
-import User from '../models/User';
+import User from '../../../../models/User';
 
 export async function GET(req) {
   const { id } = req.params; // Get user ID from the URL parameters

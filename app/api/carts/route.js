@@ -1,5 +1,5 @@
-import User from '../models/User';
-import Product from '../models/Product';
+import User from '../../../models/User';
+import Product from '../../../models/Product';
 
 export async function POST(req) {
   const { productId, quantity = 1 } = await req.json(); // Get product ID and quantity from the request body

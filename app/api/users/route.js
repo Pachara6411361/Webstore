@@ -1,4 +1,4 @@
-import User from '../models/User';
+import User from '../../../models/User';
 import bcrypt from 'bcrypt';
 
 export async function POST(req) {

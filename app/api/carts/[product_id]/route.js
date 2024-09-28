@@ -1,4 +1,4 @@
-import User from '../models/User';
+import User from '../../../../models/User';
 
 export async function PUT(req) {
   const { productId, quantity } = await req.json(); // Get the product ID and new quantity from the request body

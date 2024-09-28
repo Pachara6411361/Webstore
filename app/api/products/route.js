@@ -1,4 +1,4 @@
-import Product from '../models/Product'; // Assuming your model is stored in this path
+import Product from '../../../models/Product'; // Assuming your model is stored in this path
 
 // GET /products
 export async function GET(req, res) {
