@@ -13,6 +13,7 @@
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
     "dropdown": "^0.2.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.4",
     "next": "^14.2.13",
     "react": "^18",
