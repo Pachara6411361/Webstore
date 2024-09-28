@@ -1,8 +1,8 @@
-"use client"; 
+"use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import cart from './image/cart2.png'; // Make sure the path to the image is correct
+import cart from './image/cart2.png'; // Ensure the path to the image is correct
 import Dropdown from './Dropdown'; // Ensure this path is correct
 import AddProductForm from '../navbar/addproductform'; // Adjust the path as necessary
 
@@ -19,9 +19,10 @@ const Navbar = () => {
         {/* Navigation Links */}
         <ul className="nav-links">
           <li><Link href="/home">Home</Link></li>
-          {/* Use the Dropdown component for Products */}
-          <li><Dropdown /></li>
+          <li><Dropdown /></li> {/* Dropdown component for Products */}
           <li><Link href="/contacts">Contact</Link></li>
+          <li><Link href="/login">Login</Link></li>  
+          <li><Link href="/register">Register</Link></li>  
         </ul>
 
         {/* Cart Section */}
