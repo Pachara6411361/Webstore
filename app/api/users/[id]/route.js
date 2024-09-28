@@ -36,7 +36,7 @@ export async function GET(req, { params }) {
 export async function PUT(req, { params }) {
   const { id } = params; // Get user ID from the URL parameters
   const { name, password } = await req.json(); // Get new profile data from the request body
-  console.log(id);
+
   try {
     const user = await User.findById(id);
     if (!user) {
@@ -54,6 +54,36 @@ export async function PUT(req, { params }) {
 
     return new Response(
       JSON.stringify({ message: "Profile updated successfully" }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  } catch (error) {
+    return new Response(JSON.stringify({ message: "Server error", error }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+}
+
+export async function DELETE(req, { params }) {
+  const { id } = params; // Get user ID from the URL parameters
+
+  try {
+    // Find the user by ID
+    const user = await User.findById(id);
+    if (!user) {
+      return new Response(JSON.stringify({ message: "User not found" }), {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    await user.deleteOne(); // Delete the user
+
+    return new Response(
+      JSON.stringify({ message: "User deleted successfully" }),
       {
         status: 200,
         headers: { "Content-Type": "application/json" },
