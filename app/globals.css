@@ -571,3 +571,10 @@ label {
 .auth-button:hover {
   background-color: #3700b3;
 }
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}

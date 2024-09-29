@@ -1,3 +1,5 @@
+"use client";
+
 import Image from 'next/image'
 import mountains from '../app/public/logo2.png'
  
