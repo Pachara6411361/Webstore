@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
 import Logo from "../public/logo2.png";
@@ -9,6 +10,7 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -38,7 +40,7 @@ const CartPage = () => {
   const getUserId = () => {
     const authToken = localStorage.getItem("authToken");
     if (!authToken) {
-      console.error("User is not authenticated.");
+      router.push("/login");
       return;
     }
 

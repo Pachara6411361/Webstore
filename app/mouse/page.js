@@ -27,7 +27,7 @@ const MousePage = () => {
   const getUserId = () => {
     const authToken = localStorage.getItem("authToken");
     if (!authToken) {
-      console.error("User is not authenticated.");
+      router.push("/login");
       return;
     }
 
