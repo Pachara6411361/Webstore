@@ -363,6 +363,31 @@ footer p {
   width: 80px;
 }
 
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.cart-table th,
+.cart-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.cart-table th {
+  font-weight: bold;
+}
+
+.cart-table td button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: red;
+  font-size: 1.2em;
+}
+
 .remove-item {
   background: none;
   border: none;
@@ -372,6 +397,11 @@ footer p {
 .cart-summary {
   margin-top: 20px;
   text-align: right;
+}
+
+.cart-summary p {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .checkout-btn {

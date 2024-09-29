@@ -1,37 +1,94 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Logo from '../public/logo2.png'; // Make sure the path to your logo is correct
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import axios from "axios";
+import Logo from "../public/logo2.png";
+import { jwtDecode } from "jwt-decode";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [products, setProducts] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    setCartItems(cart);
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("/api/products");
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    const fetchCartItems = async () => {
+      const userId = getUserId();
+
+      try {
+        const response = await axios.get(`/api/carts/${userId}`);
+        setCartItems(response.data.items);
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      }
+    };
+
+    fetchProducts();
+    fetchCartItems();
   }, []);
 
-  const handleRemoveItem = (index) => {
-    const newCart = [...cartItems];
-    newCart.splice(index, 1);
-    setCartItems(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
+  const getUserId = () => {
+    const authToken = localStorage.getItem("authToken");
+    if (!authToken) {
+      console.error("User is not authenticated.");
+      return;
+    }
+
+    // Decode the token to get the user ID
+    const { id: userId } = jwtDecode(authToken);
+
+    return userId;
+  };
+
+  const handleRemoveItem = async (index) => {
+    try {
+      const userId = getUserId();
+
+      await axios.delete(`/api/carts/${userId}`, {
+        data: { productId: cartItems[index].product },
+      });
+
+      const newCart = [...cartItems];
+      newCart.splice(index, 1);
+      setCartItems(newCart);
+    } catch (error) {
+      alert("Error removing cart item:", error);
+    }
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0).toFixed(2);
+    return cartItems
+      .reduce((acc, item) => {
+        const product =
+          products.find((product) => product.id == item.product) ?? {};
+        return acc + parseFloat(product.price) * item.quantity;
+      }, 0)
+      .toFixed(2);
   };
 
-  const handleCheckout = () => {
-    // Show popup message
-    setShowPopup(true);
+  const handleCheckout = async () => {
+    try {
+      const userId = getUserId();
 
-    // Clear cart after a short delay
-    setTimeout(() => {
+      for (const index in cartItems) {
+        await axios.delete(`/api/carts/${userId}`, {
+          data: { productId: cartItems[index].product },
+        });
+      }
+
       setCartItems([]);
-      localStorage.removeItem('cart');
-    }, 2000); // Delay to clear the cart after 2 seconds
+      setShowPopup(true);
+    } catch (error) {
+      alert("Error checking out:", error);
+    }
   };
 
   return (
@@ -41,13 +98,35 @@ const CartPage = () => {
         {cartItems.length === 0 ? (
           <p>Your cart is empty</p>
         ) : (
-          cartItems.map((item, index) => (
-            <div key={index} className="cart-item">
-              <p>{item.name}</p>
-              <p>Price: ${Number(item.price).toFixed(2)}</p>
-              <button onClick={() => handleRemoveItem(index)}>🗑️</button>
-            </div>
-          ))
+          <table className="cart-table">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.map((item, index) => {
+                const product =
+                  products.find((product) => product.id == item.product) ?? {};
+
+                return (
+                  <tr key={index}>
+                    <td>{product?.name}</td>
+                    <td>${Number(product?.price).toFixed(2)}</td>
+                    <td>{item.quantity}</td>
+                    <td>
+                      <button onClick={() => handleRemoveItem(index)}>
+                        🗑️
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         )}
       </div>
       {cartItems.length > 0 && (
@@ -63,9 +142,12 @@ const CartPage = () => {
       {showPopup && (
         <div className="popup">
           <div className="popup-content">
-            <Image src={Logo} alt="Logo" width={250} height={250} /> {/* Logo size increased */}
+            <Image src={Logo} alt="Logo" width={250} height={250} />{" "}
+            {/* Logo size increased */}
             <h2 className="popup-text">Thank you for your purchase!</h2>
-            <p className="popup-text">Your order has been placed successfully.</p>
+            <p className="popup-text">
+              Your order has been placed successfully.
+            </p>
             <button onClick={() => setShowPopup(false)}>Close</button>
           </div>
         </div>
