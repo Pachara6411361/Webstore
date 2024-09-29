@@ -1,155 +1,118 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import Mouse from "../public/mouse.jpg";
+import Image from "next/image";
+import { jwtDecode } from "jwt-decode";
 
 const MousePage = () => {
-  const [allMouseProducts, setAllMouseProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [brandFilters, setBrandFilters] = useState([]);
-  const [wirelessFilter, setWirelessFilter] = useState("");
+  const [products, setProducts] = useState([]);
+  const [quantities, setQuantities] = useState({});
   const router = useRouter();
 
-  // Fetch mouse products from MongoDB when the component mounts
   useEffect(() => {
-    const fetchMouseProducts = async () => {
+    const fetchProducts = async () => {
       try {
-        const response = await axios.get('/api/mice'); // API route to fetch data from MongoDB
-        setAllMouseProducts(response.data);
-        setFilteredProducts(response.data);
+        const response = await axios.get("/api/products?category=mouse");
+        setProducts(response.data);
       } catch (error) {
-        console.error("Error fetching mouse products:", error);
+        console.error("Error fetching products:", error);
       }
     };
 
-    fetchMouseProducts();
+    fetchProducts();
   }, []);
 
+  const getUserId = () => {
+    const authToken = localStorage.getItem("authToken");
+    if (!authToken) {
+      console.error("User is not authenticated.");
+      return;
+    }
+
+    // Decode the token to get the user ID
+    const { id: userId } = jwtDecode(authToken);
+
+    return userId;
+  };
+
   // Handle adding the product to the cart
-  const handleAddToCart = (product) => {
-    const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
-    const productToAdd = {
-      ...product,
-      price: parseFloat(product.price), // Ensure price is a number
+  const handleAddToCart = async (product) => {
+    const userId = getUserId();
+
+    if (!quantities[product.id]) {
+      alert("Please specify quantity to add");
+      return;
+    }
+
+    // Prepare the product data to be sent to the cart API
+    const productData = {
+      productId: product.id,
+      quantity: quantities[product.id] || 1, // You can modify this based on your app logic (e.g., allow user to select quantity)
     };
-    currentCart.push(productToAdd);
-    localStorage.setItem('cart', JSON.stringify(currentCart));
-    router.push('/cart'); // Redirect to the cart page
-  };
 
-  // Handle brand filter change
-  const handleBrandChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setBrandFilters([...brandFilters, value]);
-    } else {
-      setBrandFilters(brandFilters.filter((brand) => brand !== value));
+    try {
+      const response = await axios.post(`/api/carts/${userId}`, productData);
+
+      console.log("Product added to cart:", product);
+      if (response.status === 200) {
+        router.push("/cart"); // Redirect to the cart page after adding the product
+      }
+    } catch (error) {
+      alert("Error adding product to cart:", error);
     }
   };
 
-  // Handle wireless filter change
-  const handleWirelessChange = (e) => {
-    setWirelessFilter(e.target.value);
-  };
-
-  // Apply filters to the product list
-  const applyFilters = () => {
-    let filtered = allMouseProducts;
-
-    if (brandFilters.length > 0) {
-      filtered = filtered.filter((product) => brandFilters.includes(product.brand));
-    }
-
-    if (wirelessFilter) {
-      filtered = filtered.filter((product) => product.wireless === wirelessFilter);
-    }
-
-    setFilteredProducts(filtered);
+  // Handle quantity change
+  const handleQuantityChange = (productId, change) => {
+    setQuantities((prevQuantities) => {
+      const currentQuantity = prevQuantities[productId] || 0;
+      const newQuantity = Math.max(currentQuantity + change, 0); // Ensure quantity doesn't go below 0
+      return {
+        ...prevQuantities,
+        [productId]: newQuantity,
+      };
+    });
   };
 
   return (
     <div className="product-page">
-      <h1 className="product-title">MOUSE</h1>
+      <h1 className="product-title">MOUSES</h1>
 
-      {/* Filter section */}
-      <div className="product-filter">
-        <div className="filter-group">
-          <h3 className="text-purple-500">Brand:</h3>
-          <label>
-            <input
-              type="checkbox"
-              value="Logitech"
-              onChange={handleBrandChange}
-            />
-            Logitech
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="Razer"
-              onChange={handleBrandChange}
-            />
-            Razer
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="Akko"
-              onChange={handleBrandChange}
-            />
-            Akko
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="HyperX"
-              onChange={handleBrandChange}
-            />
-            HyperX
-          </label>
-        </div>
-
-        <div className="filter-group">
-          <h3 className="text-purple-500">Wireless:</h3>
-          <label>
-            <input
-              type="radio"
-              value="Yes"
-              name="wireless"
-              onChange={handleWirelessChange}
-            />
-            Yes
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="No"
-              name="wireless"
-              onChange={handleWirelessChange}
-            />
-            No
-          </label>
-        </div>
-
-        <button className="apply-filters" onClick={applyFilters}>
-          Apply Filters
-        </button>
-      </div>
-
-      {/* Product listing */}
       <div className="product-grid">
-        {filteredProducts.map((product, index) => (
+        {products.map((product, index) => (
           <div key={index} className="product-card">
-            <Image
-              src={product.image}
-              alt={product.name}
-              width={150}
-              height={300}
-            />
+            {product.image ? (
+              <img
+                src={product.image} // Provide a default image if the URL is missing
+                alt={product.name}
+                width={150}
+                height={300}
+              />
+            ) : (
+              <Image src={Mouse} alt={product.name} width={150} height={300} />
+            )}
+
             <p>{product.name}</p>
+            <p>Wireless: {product.specs.wireless}</p>
             <p>Price: ${product.price.toFixed(2)}</p>
-            <button className="add-to-cart" onClick={() => handleAddToCart(product)}>
+
+            {/* Quantity Input */}
+            <div className="quantity-control">
+              <button onClick={() => handleQuantityChange(product.id, -1)}>
+                -
+              </button>
+              <span>{quantities[product.id] || 0}</span>
+              <button onClick={() => handleQuantityChange(product.id, 1)}>
+                +
+              </button>
+            </div>
+
+            <button
+              className="add-to-cart"
+              onClick={() => handleAddToCart(product)}
+            >
               Add to Cart
             </button>
           </div>
