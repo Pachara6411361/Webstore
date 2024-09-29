@@ -101,7 +101,13 @@ body {
   margin-top: 20px;
 }
 
+.product-page {
+  padding: 50px;
+  margin-top: 40px;
+}
+
 .product-grid {
+  margin: 2.5rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
@@ -129,6 +135,33 @@ body {
   color: white;
   font-size: 18px;
   margin-top: 10px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0; /* Adjust margin for spacing */
+
+}
+
+.quantity-control button {
+  width: 30px; /* Adjust the width of the buttons */
+  height: 30px; /* Adjust the height of the buttons */
+  font-size: 18px; /* Adjust the font size */
+  margin: 0 5px; /* Space between buttons */
+  display: flex; /* Added to center text */
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+  border-radius: 15px;
+}
+
+.quantity-control span {
+  width: 30px; /* Fixed width for the quantity display */
+  text-align: center; /* Center the text */
+  display: flex; /* Added to center text */
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
 }
 
 footer {
