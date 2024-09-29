@@ -5,24 +5,31 @@ import axios from "axios";
 import Keyboard from "../public/keyboard.jpg";
 import Image from "next/image";
 import { jwtDecode } from "jwt-decode";
+import EditProductForm from "../components/navigation/navbar/EditProductForms";
 
 const KeyboardPage = () => {
+  const [showForm, setShowForm] = useState(false);
   const [products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
+  const [selectedEditProduct, setSelectedEditProduct] = useState({});
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get("/api/products?category=keyboard");
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
+  // Functions to handle opening and closing the form modal
+  const handleOpenForm = () => setShowForm(true);
+  const handleCloseForm = () => setShowForm(false);
 
+  useEffect(() => {
     fetchProducts();
   }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get("/api/products?category=keyboard");
+      setProducts(response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
 
   const getUserId = () => {
     const authToken = localStorage.getItem("authToken");
@@ -76,6 +83,25 @@ const KeyboardPage = () => {
     });
   };
 
+  const handleEditProduct = (product) => {
+    setSelectedEditProduct(product);
+    handleOpenForm();
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      // Call API to delete the product
+      await axios.delete(`/api/products/${productId}`);
+      // Optionally, update the UI by removing the product from the state
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product.id !== productId)
+      );
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      alert("Failed to delete product");
+    }
+  };
+
   return (
     <div className="product-page">
       <h1 className="product-title">KEYBOARDS</h1>
@@ -91,7 +117,12 @@ const KeyboardPage = () => {
                 height={300}
               />
             ) : (
-              <Image src={Keyboard} alt={product.name} width={150} height={300} />
+              <Image
+                src={Keyboard}
+                alt={product.name}
+                width={150}
+                height={300}
+              />
             )}
 
             <p>{product.name}</p>
@@ -116,9 +147,45 @@ const KeyboardPage = () => {
             >
               Add to Cart
             </button>
+
+            {/* Edit and Delete Buttons */}
+            <div className="product-actions">
+              {/* Edit Icon/Button */}
+              <button
+                onClick={() => handleEditProduct(product)}
+                className="edit-button"
+              >
+                ✏️ Edit
+              </button>
+
+              {/* Delete Icon/Button */}
+              <button
+                onClick={() => handleDeleteProduct(product.id)}
+                className="delete-button"
+              >
+                🗑️ Delete
+              </button>
+            </div>
           </div>
         ))}
       </div>
+
+      {/* Modal for the Edit Product Form */}
+      {showForm && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={handleCloseForm}>
+              &times;
+            </span>
+            {/* Pass handleCloseForm to EditProductForm as closeForm prop */}
+            <EditProductForm
+              product={selectedEditProduct}
+              closeForm={handleCloseForm}
+              onSuccess={fetchProducts}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
