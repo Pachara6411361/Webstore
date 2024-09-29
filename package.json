@@ -15,7 +15,7 @@
     "dropdown": "^0.2.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
-    "mongoose": "^8.6.4",
+    "mongoose": "8.6.4",
     "next": "^14.2.13",
     "react": "^18",
     "react-bootstrap": "^2.10.4",
