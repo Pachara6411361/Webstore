@@ -14,12 +14,12 @@ const monitorSpecsSchema = {
 
 // Mouse Specs Schema
 const mouseSpecsSchema = {
-  wireless: { type: Boolean }, // e.g., 'true', 'false'
+  wireless: { type: String }, // e.g., 'Yes', 'No'
 };
 
 // Headset Specs Schema
 const headsetSpecsSchema = {
-  wireless: { type: Boolean }, // e.g., 'true', 'false'
+  wireless: { type: String }, // e.g., 'Yes', 'No'
   surroundSound: { type: String }, // e.g., '7.1', 'Stereo'
 };
 
