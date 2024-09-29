@@ -31,8 +31,13 @@ export async function POST(req) {
 }
 
 export async function GET(req) {
+  const url = new URL(req.url);
+  const categoryQuery = url.searchParams.get("category");
+
   try {
-    const products = await Product.find(); // Fetch all products from the database
+    const query = categoryQuery ? { category: categoryQuery } : {};
+
+    const products = await Product.find(query); // Fetch all products from the database
 
     // Map each product and transform _id to id
     const transformedProducts = products.map((product) => ({
