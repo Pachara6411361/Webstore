@@ -1,9 +1,9 @@
-import React from 'react';
-import Footer from '../components/footer'; // Adjust the path based on your project structure
-import './Contacts.css'; // Import your custom CSS
-import Image from 'next/image';
-import Xicon from "../public/Xicon.png"
-import Mail from "../public/Mail-icon.png"
+import React from "react";
+import Footer from "../components/Footer"; // Adjust the path based on your project structure
+import "./Contacts.css"; // Import your custom CSS
+import Image from "next/image";
+import Xicon from "../public/Xicon.png";
+import Mail from "../public/Mail-icon.png";
 
 const Contacts = () => {
   return (
@@ -14,18 +14,18 @@ const Contacts = () => {
 
       <section className="contact-content">
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
 
         <div className="contact-icons">
-        <Image
+          <Image
             src={Xicon} // Path to the image
             alt="X"
             width={60} // Size of the cart icon
             height={60}
           />
-            <Image
+          <Image
             src={Mail} // Path to the image
             alt="X"
             width={100} // Size of the cart icon

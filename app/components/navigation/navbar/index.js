@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import cart from './image/cart2.png'; // Ensure the path to the image is correct
-import Dropdown from './Dropdown'; // Ensure this path is correct
-import AddProductForm from '../navbar/addproductform'; // Adjust the path as necessary
+import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import cart from "./image/cart2.png"; // Ensure the path to the image is correct
+import Dropdown from "./Dropdown"; // Ensure this path is correct
+import AddProductForm from "./AddProductForm"; // Adjust the path as necessary
 
 const Navbar = () => {
   const [showForm, setShowForm] = useState(false);
@@ -18,11 +18,22 @@ const Navbar = () => {
       <nav className="navbar">
         {/* Navigation Links */}
         <ul className="nav-links">
-          <li><Link href="/home">Home</Link></li>
-          <li><Dropdown /></li> {/* Dropdown component for Products */}
-          <li><Link href="/contacts">Contact</Link></li>
-          <li><Link href="/login">Login</Link></li>  
-          <li><Link href="/register">Register</Link></li>  
+          <li>
+            <Link href="/home">Home</Link>
+          </li>
+          <li>
+            <Dropdown />
+          </li>{" "}
+          {/* Dropdown component for Products */}
+          <li>
+            <Link href="/contacts">Contact</Link>
+          </li>
+          <li>
+            <Link href="/login">Login</Link>
+          </li>
+          <li>
+            <Link href="/register">Register</Link>
+          </li>
         </ul>
 
         {/* Cart Section */}
@@ -47,7 +58,9 @@ const Navbar = () => {
       {showForm && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={handleCloseForm}>&times;</span>
+            <span className="close" onClick={handleCloseForm}>
+              &times;
+            </span>
             {/* Pass handleCloseForm to AddProductForm as closeForm prop */}
             <AddProductForm closeForm={handleCloseForm} />
           </div>

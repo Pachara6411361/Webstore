@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -26,9 +22,18 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "app/contacts/page.js", "app/about/page.js", "app/page.js"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "**/*.tsx",
+    "app/contacts/page.js",
+    "app/about/page.js",
+    "app/page.js",
+    "app/components/navigation/navbar/Button.js",
+    "app/components/navigation/navbar/Dropdown.js",
+    "app/components/navigation/navbar/index.js",
+    "app/components/navigation/navbar/Logo.js",
+    "app/components/Footer.js",
+    "app/components/navigation/index.js",
+    "app/components/navigation/sidebar/index.js",
+    "app/layout.js"
+  ],
+  "exclude": ["node_modules"]
 }
