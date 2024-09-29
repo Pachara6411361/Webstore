@@ -38,8 +38,6 @@ const Register = () => {
         password,
       });
 
-      console.log(response);
-
       if (response.status === 201) {
         setError("");
         router.push("/login");
