@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import cart from "./image/cart2.png";
 import Dropdown from "./Dropdown";
-import AddProductForm from "./AddProductForm";
+import AddProductForm from "./AddProductForms";
 
 const Navbar = () => {
   const [showForm, setShowForm] = useState(false);
