@@ -16,6 +16,19 @@ Frontend UI and Backend API developed using Next.js framework. Database for pers
 - Cart System - Persistent shopping cart that saves items across sessions and calculate total product.
 
 ## Screenshots
-![Screenshot 1](\img\add_new_product.png)
-![Screenshot 2](https://via.placeholder.com/800x400?text=Screenshot+2)
-![Screenshot 3](https://via.placeholder.com/800x400?text=Screenshot+3)
+### Home
+![Screenshot 1](./img/home.png)
+### Add Product
+![Screenshot 2](./img/addproduct.png)
+### Product Catalog
+![Screenshot 3](./img/product.png)
+### Update Product
+![Screenshot 4](./img/update.png)
+### Cart
+![Screenshot 5](./img/cart.png)
+### Checkout
+![Screenshot 6](./img/checkout.png)
+### Register
+![Screenshot 7](./img/register.png)
+### Login
+![Screenshot 8](./img/login.png)
