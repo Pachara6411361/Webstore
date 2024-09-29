@@ -49,19 +49,22 @@ export async function PUT(req, { params }) {
   const { name, category, brand, price, image, specs } = await req.json(); // Extract fields from the request body
 
   try {
-    // Find the product by its ID and update it
-    const updatedProduct = await Product.findByIdAndUpdate(
-      id,
-      { name, category, brand, price, image, specs }, // Fields to update
-      { new: true, runValidators: true } // Return the updated product
-    );
-
-    if (!updatedProduct) {
+    const product = await Product.findById(id);
+    if (!product) {
       return new Response(JSON.stringify({ message: "Product not found" }), {
         status: 404,
         headers: { "Content-Type": "application/json" },
       });
     }
+
+    if (name) product.name = name;
+    if (category) product.category = category;
+    if (brand) product.brand = brand;
+    if (price) product.price = price;
+    if (image) product.image = image;
+    if (specs) product.specs = specs;
+
+    await product.save(); // Save the updated product
 
     return new Response(
       JSON.stringify({ message: "Product updated successfully" }),
