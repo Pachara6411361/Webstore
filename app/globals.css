@@ -1,175 +1,174 @@
 /* globals.css */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #1e1e2f;
-    color: white;
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: #2e2e48;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 100;
-    height: 70px; /* Adjust to fit properly */
-  }
-  
-  .navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-  }
-  
-  .navbar ul li {
-    position: relative; /* Important to isolate dropdown */
-    padding: 10px;
-  }
-  
-  .navbar ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-  }
-  
-  .navbar ul li a:hover {
-    color: #ab66ff;
-  }
-  
-  .relative .absolute {
-    position: absolute; /* Important for dropdown placement */
-    top: 100%;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 0;
-    background-color: #3a3a5e; /* Ensure the background is visible */
-    border-radius: 5px;
-    z-index: 9999;
-  }
-  
-  .relative .absolute a {
-    padding: 0.75rem 1rem;
-    color: white;
-    text-decoration: none;
-    background-color: transparent;
-  }
-  
-  .relative .absolute a:hover {
-    background-color: #7b1fa2;
-    color: #fff;
-  }
-  
-  .relative:hover .absolute {
-    display: flex;
-  }
-  
-  .hero {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 50px;
-    background-color: #2a2a4d;
-    margin-top: 60px; /* Adjust margin-top so it does not overlap with navbar */
-  }
-  
-  .hero img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .hero-text h1 {
-    font-size: 48px;
-    color: white;
-  }
-  
-  .hero-text h1 span {
-    color: #ab66ff;
-  }
-  
-  .products {
-    padding: 50px;
-    margin-top: 20px;
-  }
-  
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-  }
-  
-  .product-card {
-    background-color: #3a3a5e;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-  }
-  
-  .product-card img {
-    max-width: 100%;
-    height: 120px; /* Ensure the images are sized uniformly */
-    margin-bottom: 20px;
-  }
-  
-  .product-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .product-card p {
-    color: white;
-    font-size: 18px;
-    margin-top: 10px;
-  }
-  
-  footer {
-    background-color: #2e2e48;
-    padding: 20px;
-    text-align: center;
-    color: white;
-    margin-top: 50px;
-  }
-  
-  footer p {
-    margin: 10px 0;
-    font-size: 14px;
-  }
-  
-  .footer-links {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .footer-links li {
-    padding: 0;
-  }
-  
-  .footer-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-  }
-  
-  .footer-links a:hover {
-    text-decoration: underline;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1e1e2f;
+  color: white;
+}
 
-  /*Contacts*/
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #2e2e48;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  height: 70px; /* Adjust to fit properly */
+}
 
-  /* General styling for the Contact Page */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+
+.navbar ul li {
+  position: relative; /* Important to isolate dropdown */
+  padding: 10px;
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.navbar ul li a:hover {
+  color: #ab66ff;
+}
+
+.relative .absolute {
+  position: absolute; /* Important for dropdown placement */
+  top: 100%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+  background-color: #3a3a5e; /* Ensure the background is visible */
+  border-radius: 5px;
+  z-index: 9999;
+}
+
+.relative .absolute a {
+  padding: 0.75rem 1rem;
+  color: white;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.relative .absolute a:hover {
+  background-color: #7b1fa2;
+  color: #fff;
+}
+
+.relative:hover .absolute {
+  display: flex;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  background-color: #2a2a4d;
+  margin-top: 60px; /* Adjust margin-top so it does not overlap with navbar */
+}
+
+.hero img {
+  max-width: 100%;
+  height: auto;
+}
+
+.hero-text h1 {
+  font-size: 48px;
+  color: white;
+}
+
+.hero-text h1 span {
+  color: #ab66ff;
+}
+
+.products {
+  padding: 50px;
+  margin-top: 20px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.product-card {
+  background-color: #3a3a5e;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.product-card img {
+  max-width: 100%;
+  height: 120px; /* Ensure the images are sized uniformly */
+  margin-bottom: 20px;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-card p {
+  color: white;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+footer {
+  background-color: #2e2e48;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  margin-top: 50px;
+}
+
+footer p {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-links li {
+  padding: 0;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/*Contacts*/
+
+/* General styling for the Contact Page */
 .contact-container {
   display: flex;
   flex-direction: column;
@@ -241,21 +240,20 @@
 /* Styling for the dropdown menu */
 .relative .absolute {
   display: flex;
-  flex-direction: column;  /* Ensures the menu items are stacked vertically */
-  padding: 0.5rem 0;  /* Add vertical padding */
+  flex-direction: column; /* Ensures the menu items are stacked vertically */
+  padding: 0.5rem 0; /* Add vertical padding */
 }
 
 .relative .absolute a {
-  padding: 0.75rem 1rem;  /* Add spacing for each item */
+  padding: 0.75rem 1rem; /* Add spacing for each item */
   color: white;
   text-decoration: none;
 }
 
 .relative .absolute a:hover {
-  background-color: #7b1fa2;  /* Highlight on hover */
+  background-color: #7b1fa2; /* Highlight on hover */
   color: #fff;
 }
-
 
 .product-filter {
   display: flex;
@@ -351,7 +349,6 @@
   cursor: pointer;
 }
 
-
 .modal {
   display: flex;
   justify-content: center;
@@ -401,6 +398,32 @@
   border-radius: 8px;
   background-color: #1f1f38; /* Dark background to match the site theme */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-product-input {
+  width: 15rem ;
+  margin: 0.75rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  font-size: 16px;
+  background-color: #ffffff;
+}
+
+.add-product-dropdown {
+  width: 15rem ;
+  margin: 0.75rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  font-size: 16px;
+  background-color: #ffffff;
 }
 
 .form-title {
@@ -500,8 +523,6 @@
   cursor: pointer;
   color: #d1c4ff;
 }
-
-
 
 /* auth.css */
 .auth-container {
