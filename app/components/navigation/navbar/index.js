@@ -60,16 +60,19 @@ const Navbar = () => {
         </ul>
 
         {/* Cart Section */}
-        <div className="cart">
-          <Link href="/cart">
-            <Image
-              src={cart} // Path to the image
-              alt="Cart"
-              width={24} // Size of the cart icon
-              height={24}
-            />
-          </Link>
-        </div>
+
+        {isAuthenticated && (
+          <div className="cart">
+            <Link href="/cart">
+              <Image
+                src={cart} // Path to the image
+                alt="Cart"
+                width={24} // Size of the cart icon
+                height={24}
+              />
+            </Link>
+          </div>
+        )}
 
         {/* Button to open the Add Product Form modal */}
         <button className="add-product-btn" onClick={handleOpenForm}>
