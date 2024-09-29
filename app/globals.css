@@ -303,7 +303,9 @@
   color: #6a0dad; /* Purple color */
 }
 
-
+.cart {
+  padding: 20px;
+}
 
 .cart-page {
   padding: 20px;

@@ -1,17 +1,29 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import cart from "./image/cart2.png"; // Ensure the path to the image is correct
-import Dropdown from "./Dropdown"; // Ensure this path is correct
-import AddProductForm from "./AddProductForm"; // Adjust the path as necessary
+import cart from "./image/cart2.png";
+import Dropdown from "./Dropdown";
+import AddProductForm from "./AddProductForm";
 
 const Navbar = () => {
   const [showForm, setShowForm] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    setIsAuthenticated(!!token);
+  }, []);
 
   // Functions to handle opening and closing the form modal
   const handleOpenForm = () => setShowForm(true);
   const handleCloseForm = () => setShowForm(false);
+
+  // Function to handle logout
+  const handleLogout = () => {
+    localStorage.removeItem("authToken"); // Remove token from local storage
+    setIsAuthenticated(false); // Update authentication state
+  };
 
   return (
     <>
@@ -28,12 +40,23 @@ const Navbar = () => {
           <li>
             <Link href="/contacts">Contact</Link>
           </li>
-          <li>
-            <Link href="/login">Login</Link>
-          </li>
-          <li>
-            <Link href="/register">Register</Link>
-          </li>
+          {!isAuthenticated ? ( // Only show these links if not authenticated
+            <>
+              <li>
+                <Link href="/login">Login</Link>
+              </li>
+              <li>
+                <Link href="/register">Register</Link>
+              </li>
+            </>
+          ) : (
+            // Show logout button if authenticated
+            <li>
+              <Link href="/" onClick={handleLogout}>
+                Logout
+              </Link>
+            </li>
+          )}
         </ul>
 
         {/* Cart Section */}
